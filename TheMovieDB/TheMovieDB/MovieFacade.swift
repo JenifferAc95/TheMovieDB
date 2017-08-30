@@ -21,23 +21,30 @@ class MovieFacade {
                 
                 for movieDictionary in movieDictionaries! {
                     let newMovie = Movie(movieDictionary: movieDictionary)
-                    
                     let base = "https://image.tmdb.org/t/p/w92"
                     let pathMovie = newMovie.poster_path
                     let posterMovie = base + pathMovie!
                     
-                    Alamofire.request(posterMovie).responseData{ response in
-                        if let posterImage = response.result.value {
-                            let imagePoster = (UIImage(data: posterImage))
-                            newMovie.postImage = imagePoster
-                        } else {
-                            print("Error")
-                        }
+                    self.requestPosterImage(urlPosterImage: posterMovie){ posterImage in
+                        newMovie.postImage = posterImage
                     }
                     movies.append(newMovie)
                 }
                 completion(movies)
             }
+        }
+    }
+    
+    func requestPosterImage(urlPosterImage: String, completion: @escaping ((UIImage) -> Void)){
+        var imagePoster: UIImage?
+        
+        Alamofire.request(urlPosterImage).responseData { response in
+            if let posterImage = response.result.value {
+                imagePoster = (UIImage(data: posterImage))
+            } else {
+                print("Error")
+            }
+            completion(imagePoster!)
         }
     }
 }
