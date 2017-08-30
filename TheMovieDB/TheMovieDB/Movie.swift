@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 class Movie {
@@ -26,7 +27,8 @@ class Movie {
     var popularity: String?
     var vote_count: String?
     var video: String?
-    var vote_average: String?
+    var vote_average: Float?
+    var postImage: UIImage?
     
     init(title: String, overview: String) {
         self.title = title
@@ -47,7 +49,7 @@ class Movie {
         self.popularity = movieDictionary["popularity"] as? String
         self.vote_count = movieDictionary["vote_count"] as? String
         self.video = movieDictionary["video"] as? String
-        self.vote_average = movieDictionary["vote_average"] as? String
+        self.vote_average = movieDictionary["vote_average"] as? Float
     }
     
     

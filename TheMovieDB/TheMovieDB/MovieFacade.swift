@@ -11,23 +11,35 @@ import Alamofire
 
 class MovieFacade {
     
-    let popularMovie: String = "https://api.themoviedb.org/3/movie/popular?api_key=1f4d7de5836b788bdfd897c3e0d0a24b&language=en-US&page=1"
-    
-    func retrievePopularMovies() {
+    func retrievePopularMovies(completion: @escaping (([Movie]) -> Void)) {
+        let popularMovie: String = "https://api.themoviedb.org/3/movie/popular?api_key=1f4d7de5836b788bdfd897c3e0d0a24b&language=en-US&page=1"
         
         Alamofire.request(popularMovie).responseJSON { response in
             if let json = response.result.value as? [String: Any]{
                 let movieDictionaries = json["results"] as? [[String: Any]]
                 var movies = [Movie]()
-                let title = movieDictionaries
                 
                 for movieDictionary in movieDictionaries! {
                     let newMovie = Movie(movieDictionary: movieDictionary)
+                    
+                    let base = "https://image.tmdb.org/t/p/w92"
+                    let pathMovie = newMovie.poster_path
+                    let posterMovie = base + pathMovie!
+                    
+                    Alamofire.request(posterMovie).responseData{ response in
+                        if let posterImage = response.result.value {
+                            let imagePoster = (UIImage(data: posterImage))
+                            newMovie.postImage = imagePoster
+                        } else {
+                            print("Error")
+                        }
+                    }
                     movies.append(newMovie)
                 }
-                
-                print(title!)
+                completion(movies)
             }
         }
     }
 }
+
+
