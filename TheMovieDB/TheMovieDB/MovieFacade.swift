@@ -41,6 +41,7 @@ class MovieFacade {
         Alamofire.request(urlPosterImage).responseData { response in
             if let posterImage = response.result.value {
                 imagePoster = (UIImage(data: posterImage))
+                print("image ready")
             } else {
                 print("Error")
             }

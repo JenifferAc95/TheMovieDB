@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7D9E20941F58580300817746 /* MovieFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9E20931F58580300817746 /* MovieFacade.swift */; };
 		7D9E20961F58580F00817746 /* Moview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9E20951F58580F00817746 /* Moview.swift */; };
+		7D9E20981F585AA400817746 /* MovieCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9E20971F585AA400817746 /* MovieCollectionViewController.swift */; };
+		7D9E209D1F585B1C00817746 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9E209B1F585B1C00817746 /* CollectionViewCell.swift */; };
+		7D9E209E1F585B1C00817746 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9E209C1F585B1C00817746 /* CollectionViewCell.xib */; };
 		9532B6E8023B3CFA604C662C /* Pods_TheMovieDBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF99C8CB822C7938ED60F7E /* Pods_TheMovieDBTests.framework */; };
 		F2C92F73C8E74998712331D4 /* Pods_TheMovieDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 592420450FD16D5AD3154771 /* Pods_TheMovieDB.framework */; };
 		F50BD2AB1E37A41D008821F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50BD2AA1E37A41D008821F8 /* AppDelegate.swift */; };
@@ -38,6 +41,9 @@
 		592420450FD16D5AD3154771 /* Pods_TheMovieDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheMovieDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D9E20931F58580300817746 /* MovieFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieFacade.swift; sourceTree = "<group>"; };
 		7D9E20951F58580F00817746 /* Moview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Moview.swift; sourceTree = "<group>"; };
+		7D9E20971F585AA400817746 /* MovieCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewController.swift; sourceTree = "<group>"; };
+		7D9E209B1F585B1C00817746 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		7D9E209C1F585B1C00817746 /* CollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		F50BD2A71E37A41D008821F8 /* TheMovieDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMovieDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F50BD2AA1E37A41D008821F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F50BD2AC1E37A41D008821F8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +116,9 @@
 				F50BD2B61E37A41D008821F8 /* Info.plist */,
 				7D9E20931F58580300817746 /* MovieFacade.swift */,
 				7D9E20951F58580F00817746 /* Moview.swift */,
+				7D9E20971F585AA400817746 /* MovieCollectionViewController.swift */,
+				7D9E209B1F585B1C00817746 /* CollectionViewCell.swift */,
+				7D9E209C1F585B1C00817746 /* CollectionViewCell.xib */,
 			);
 			path = TheMovieDB;
 			sourceTree = "<group>";
@@ -225,6 +234,7 @@
 			files = (
 				F50BD2B51E37A41D008821F8 /* LaunchScreen.storyboard in Resources */,
 				F50BD2B21E37A41D008821F8 /* Assets.xcassets in Resources */,
+				7D9E209E1F585B1C00817746 /* CollectionViewCell.xib in Resources */,
 				F50BD2B01E37A41D008821F8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +348,8 @@
 			files = (
 				F50BD2AD1E37A41D008821F8 /* ViewController.swift in Sources */,
 				F50BD2AB1E37A41D008821F8 /* AppDelegate.swift in Sources */,
+				7D9E209D1F585B1C00817746 /* CollectionViewCell.swift in Sources */,
+				7D9E20981F585AA400817746 /* MovieCollectionViewController.swift in Sources */,
 				7D9E20961F58580F00817746 /* Moview.swift in Sources */,
 				7D9E20941F58580300817746 /* MovieFacade.swift in Sources */,
 			);
