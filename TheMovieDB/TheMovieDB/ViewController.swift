@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
@@ -50,11 +51,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let voteAverage = movie[indexPath.row].vote_average
         let voteAverageF = Float(round(100*voteAverage!)/100)        
         let voteAverageS = String(voteAverageF)
-        let imageMovie = movie[indexPath.row].postImage
+        let urlImage = movie[indexPath.row].imageUrl
         
         cell?.titlemovie.text = title
         cell?.overviewMovie.text = voteAverageS
-        cell?.imageMovie.image = imageMovie
+        //cell?.imageMovie.image = imageMovie
+        cell?.imageMovie.af_setImage(withURL: urlImage!)
         cell?.ratingStar.image = #imageLiteral(resourceName: "imageRating")
         return cell!
     }

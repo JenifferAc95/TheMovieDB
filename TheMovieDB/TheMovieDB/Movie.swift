@@ -29,6 +29,7 @@ class Movie {
     var video: String?
     var vote_average: Float?
     var postImage: UIImage?
+    var imageUrl: URL?
     
     init(title: String, overview: String) {
         self.title = title
