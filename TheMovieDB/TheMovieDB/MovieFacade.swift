@@ -24,9 +24,12 @@ class MovieFacade {
                     let base = "https://image.tmdb.org/t/p/w92"
                     let pathMovie = newMovie.poster_path
                     let posterMovie = base + pathMovie!
+                    let urlImage = NSURL(string: posterMovie)
+                    newMovie.imageUrl = urlImage as URL?
                     
                     self.requestPosterImage(urlPosterImage: posterMovie){ posterImage in
                         newMovie.postImage = posterImage
+                        
                     }
                     movies.append(newMovie)
                 }

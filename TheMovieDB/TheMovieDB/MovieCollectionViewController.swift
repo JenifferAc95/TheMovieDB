@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 private let reuseIdentifier = "Cell"
 
@@ -55,6 +56,7 @@ class MovieCollectionViewController: UICollectionViewController {
         let voteAverageF = Float(round(100*voteAverage!)/100)
         let voteAverageS = String(voteAverageF)
         let imageMovie = movie[indexPath.row].postImage
+        let urlImage = movie[indexPath.row].imageUrl
         
         movie.sort{$0.vote_average! > $1.vote_average!}
         
@@ -62,6 +64,7 @@ class MovieCollectionViewController: UICollectionViewController {
         cell?.ratingLabel.text = voteAverageS
         cell?.imageMovie.image = imageMovie ?? #imageLiteral(resourceName: "iTunesArtwork")
         cell?.ratingStar.image = #imageLiteral(resourceName: "ratingStar")
+        cell?.imageMovie.af_setImage(withURL: urlImage!)
     
         return cell!
     }
