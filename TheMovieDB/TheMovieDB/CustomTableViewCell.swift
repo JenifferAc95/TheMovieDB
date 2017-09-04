@@ -13,6 +13,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var overviewMovie: UILabel!
     @IBOutlet weak var titlemovie: UILabel!
     @IBOutlet weak var ratingStar: UIImageView!
+    @IBOutlet weak var yearLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

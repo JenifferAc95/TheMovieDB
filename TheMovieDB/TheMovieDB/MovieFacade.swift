@@ -22,10 +22,15 @@ class MovieFacade {
                 for movieDictionary in movieDictionaries! {
                     let newMovie = Movie(movieDictionary: movieDictionary)
                     let base = "https://image.tmdb.org/t/p/w92"
+                    let baseBack = "https://image.tmdb.org/t/p/w1280"
                     let pathMovie = newMovie.poster_path
+                    let pathBckdrop = newMovie.backdrop_path
                     let posterMovie = base + pathMovie!
                     let urlImage = NSURL(string: posterMovie)
+                    let urlBackdrop = NSURL(string: baseBack + pathBckdrop!)
+                    
                     newMovie.imageUrl = urlImage as URL?
+                    newMovie.backdropUrl = urlBackdrop as URL?
                     
                     self.requestPosterImage(urlPosterImage: posterMovie){ posterImage in
                         newMovie.postImage = posterImage

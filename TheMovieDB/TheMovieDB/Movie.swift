@@ -30,10 +30,25 @@ class Movie {
     var vote_average: Float?
     var postImage: UIImage?
     var imageUrl: URL?
+    var backdropUrl: URL? 
     
-    init(title: String, overview: String) {
-        self.title = title
-        self.overview = overview
+    init(poster_path: String, adult: String, overview: String, release_date: String, genre_ids: [Int],
+         id: String, original_title: String, original_language: String, title: String, backdrop_path: String,
+         popularity: String, vote_count: String, video: String, vote_average: Float, postImage: UIImage, imageUrl: URL) {
+            self.poster_path = poster_path
+            self.adult = adult
+            self.overview = overview
+            self.release_date = release_date
+            self.genre_ids = genre_ids
+            self.id = id
+            self.original_title = original_title
+            self.original_language = original_language
+            self.title = title
+            self.backdrop_path = backdrop_path
+            self.popularity = popularity
+            self.vote_count = vote_count
+            self.video = video
+            self.vote_average = vote_average
     }
     
     init(movieDictionary: [String : Any]) {

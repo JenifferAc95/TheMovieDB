@@ -12,6 +12,7 @@ import AlamofireImage
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     var movie = [Movie]()
+    var selectedMovie: Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +29,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
-    func getName(popularMovies: [Movie]) -> [Movie] {
-        return popularMovies
-    }
-    
     func updateUI(){
         tableView.reloadData()
     }
@@ -39,26 +36,44 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movie.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "cell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTableViewCell
+        let movieRow = movie[indexPath.row]
+        let voteAverage = movieRow.vote_average
+        let voteAverageF = Float(round(100*voteAverage!)/100)
+        let voteAverageS = String(voteAverageF)
+        let title = movieRow.title
+        let urlImage = movieRow.imageUrl
+        let year = movieRow.release_date
         
         movie.sort{$0.vote_average! > $1.vote_average!}
         
-        let title = movie[indexPath.row].title
-        let voteAverage = movie[indexPath.row].vote_average
-        let voteAverageF = Float(round(100*voteAverage!)/100)        
-        let voteAverageS = String(voteAverageF)
-        let urlImage = movie[indexPath.row].imageUrl
-        
         cell?.titlemovie.text = title
         cell?.overviewMovie.text = voteAverageS
-        //cell?.imageMovie.image = imageMovie
         cell?.imageMovie.af_setImage(withURL: urlImage!)
         cell?.ratingStar.image = #imageLiteral(resourceName: "imageRating")
+        cell?.yearLabel.text = String(year!.characters.prefix(4))
+        
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = self.movie[indexPath.row]
+        selectedMovie = movie
+        
+        performSegue(withIdentifier:  "ShowDetail", sender: nil)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDetail" {
+            let movieDetailViewController = segue.destination as! MovieDetailViewController
+            movieDetailViewController.movie = selectedMovie
+            
+        }
     }
     
 }
