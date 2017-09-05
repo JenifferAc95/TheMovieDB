@@ -17,12 +17,15 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var ratingStartImage: UIImageView!
     @IBOutlet weak var overviewText: UITextView!
     @IBOutlet weak var releaseDateLabel: UILabel!
+    @IBOutlet weak var genresLabel: UILabel!
+    
     var movie: Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Movie Detail"
+        let moviesGenres = movie?.genreNames
         
         let voteAverageF = Float(round(100*(movie?.vote_average)!)/100)
         let voteAverageS = String(voteAverageF)
@@ -33,6 +36,11 @@ class MovieDetailViewController: UIViewController {
         ratingStartImage.image = #imageLiteral(resourceName: "imageRating")
         overviewText.text = movie?.overview
         releaseDateLabel.text = movie?.release_date
+        genresLabel.text = moviesGenres?.joined(separator: ", ")
+        //genresName.text = movie?.title
+        //let stringNames =
+        //print(stringNames)
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -19,26 +19,46 @@ class MovieFacade {
                 let movieDictionaries = json["results"] as? [[String: Any]]
                 var movies = [Movie]()
                 
-                for movieDictionary in movieDictionaries! {
-                    let newMovie = Movie(movieDictionary: movieDictionary)
-                    let base = "https://image.tmdb.org/t/p/w92"
-                    let baseBack = "https://image.tmdb.org/t/p/w1280"
-                    let pathMovie = newMovie.poster_path
-                    let pathBckdrop = newMovie.backdrop_path
-                    let posterMovie = base + pathMovie!
-                    let urlImage = NSURL(string: posterMovie)
-                    let urlBackdrop = NSURL(string: baseBack + pathBckdrop!)
+                self.requestGenreName() { genresList in
                     
-                    newMovie.imageUrl = urlImage as URL?
-                    newMovie.backdropUrl = urlBackdrop as URL?
-                    
-                    self.requestPosterImage(urlPosterImage: posterMovie){ posterImage in
-                        newMovie.postImage = posterImage
+                    for movieDictionary in movieDictionaries! {
+                        let newMovie = Movie(movieDictionary: movieDictionary)
+                        let base = "https://image.tmdb.org/t/p/w92"
+                        let baseBack = "https://image.tmdb.org/t/p/w1280"
+                        let pathMovie = newMovie.poster_path
+                        let pathBckdrop = newMovie.backdrop_path
+                        let posterMovie = base + pathMovie!
+                        let urlImage = NSURL(string: posterMovie)
+                        let urlBackdrop = NSURL(string: baseBack + pathBckdrop!)
+                        let genresIds = newMovie.genre_ids
+                        
+                        newMovie.imageUrl = urlImage as URL?
+                        newMovie.backdropUrl = urlBackdrop as URL?
+                        
+                        let results = genresList.filter{ dict in
+                            if let idString = dict["id"] as? Int {
+                                let id = Int(idString)
+                                return (genresIds?.contains(id))!
+                            }
+                            return false
+                            
+                        }
+                        for result in results {
+                            let genre = result["name"] as? String
+                            newMovie.genreNames.append(genre!)
+                            //print(genre!)
+                        }
+                        
+                        self.requestPosterImage(urlPosterImage: posterMovie){ posterImage in
+                            newMovie.postImage = posterImage
+                        }
+                        movies.append(newMovie)                        
                     }
-                    movies.append(newMovie)
+                    completion(movies)
                 }
-                completion(movies)
+                
             }
+            
         }
     }
     
@@ -54,6 +74,19 @@ class MovieFacade {
             completion(imagePoster!)
         }
     }
+    
+    func requestGenreName(completion: @escaping ([[String:Any]]) -> Void){
+        let  genresJson = "https://api.themoviedb.org/3/genre/movie/list?api_key=1f4d7de5836b788bdfd897c3e0d0a24b&language=en-US"
+        
+        Alamofire.request(genresJson).responseJSON {response in
+            if let json = response.result.value as? [String: Any]{
+                let genresList = json["genres"] as? [[String: Any]]
+                completion(genresList!)
+            }
+        }
+    }
 }
+
+
 
 
