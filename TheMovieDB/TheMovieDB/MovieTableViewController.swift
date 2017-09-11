@@ -18,6 +18,7 @@ class MovieTableViewController: UITableViewController {
         
         MovieFacade().retrievePopularMovies(completion: {
             popularMovies in
+            print(type(of: popularMovies))
             self.movie = popularMovies
             self.updateUI()
         })

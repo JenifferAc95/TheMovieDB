@@ -21,16 +21,26 @@ class TheMovieDBTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testRetrievePopularMoviesNotNil() {
+        
+        let expect = expectation(description: "Movie shoold be kind -Movie-")
+        
+        MovieFacade().retrievePopularMovies(completion: {
+            popularMovies in
+            
+            if let movie = popularMovies as? [Movie] {
+                XCTAssertTrue(true)
+                expect.fulfill()
+            }
+        
+        })
+        
+        waitForExpectations(timeout: 30) { (error) in
+            XCTAssertNil(error, "Test time out")
         }
     }
+    
+    
+    
     
 }
