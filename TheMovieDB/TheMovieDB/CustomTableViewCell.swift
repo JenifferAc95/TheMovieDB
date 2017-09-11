@@ -8,10 +8,11 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
+class CustomTableViewCell: UITableViewCell, MovieDataCell {
+    
     @IBOutlet weak var imageMovie: UIImageView!
     @IBOutlet weak var overviewMovie: UILabel!
-    @IBOutlet weak var titlemovie: UILabel!
+    @IBOutlet weak var titleMovie: UILabel!
     @IBOutlet weak var ratingStar: UIImageView!
     @IBOutlet weak var yearLabel: UILabel!
 

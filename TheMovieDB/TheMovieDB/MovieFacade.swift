@@ -11,7 +11,7 @@ import Alamofire
 
 class MovieFacade {
     
-    func retrievePopularMovies(completion: @escaping (([Movie]) -> Void)) {
+    static func retrievePopularMovies(completion: @escaping (([Movie]) -> Void)) {
         let popularMovie: String = "https://api.themoviedb.org/3/movie/popular?api_key=1f4d7de5836b788bdfd897c3e0d0a24b&language=en-US&page=1"
         
         Alamofire.request(popularMovie).responseJSON { response in
@@ -23,7 +23,7 @@ class MovieFacade {
                     
                     for movieDictionary in movieDictionaries! {
                         let newMovie = Movie(movieDictionary: movieDictionary)
-                        let base = "https://image.tmdb.org/t/p/w92"
+                        let base = "https://image.tmdb.org/t/p/w154"
                         let baseBack = "https://image.tmdb.org/t/p/w1280"
                         let pathMovie = newMovie.poster_path
                         let pathBckdrop = newMovie.backdrop_path
@@ -49,9 +49,6 @@ class MovieFacade {
                             //print(genre!)
                         }
                         
-                        self.requestPosterImage(urlPosterImage: posterMovie){ posterImage in
-                            newMovie.postImage = posterImage
-                        }
                         movies.append(newMovie)                        
                     }
                     completion(movies)
@@ -75,7 +72,7 @@ class MovieFacade {
         }
     }
     
-    func requestGenreName(completion: @escaping ([[String:Any]]) -> Void){
+    static func requestGenreName(completion: @escaping ([[String:Any]]) -> Void){
         let  genresJson = "https://api.themoviedb.org/3/genre/movie/list?api_key=1f4d7de5836b788bdfd897c3e0d0a24b&language=en-US"
         
         Alamofire.request(genresJson).responseJSON {response in
