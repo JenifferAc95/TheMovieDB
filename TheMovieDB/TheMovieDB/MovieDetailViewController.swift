@@ -24,9 +24,8 @@ class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Movie Detail"
+        title = movie?.title
         let moviesGenres = movie?.genreNames
-        
         let voteAverageF = Float(round(100*(movie?.vote_average)!)/100)
         let voteAverageS = String(voteAverageF)
         
@@ -37,9 +36,6 @@ class MovieDetailViewController: UIViewController {
         overviewText.text = movie?.overview
         releaseDateLabel.text = movie?.release_date
         genresLabel.text = moviesGenres?.joined(separator: ", ")
-        //genresName.text = movie?.title
-        //let stringNames =
-        //print(stringNames)
         
     }
 

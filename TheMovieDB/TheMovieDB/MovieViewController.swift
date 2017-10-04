@@ -10,7 +10,8 @@ import UIKit
 
 class MovieViewController: UIViewController {
     
-    var movie = [Movie]()
+    var movies = [Movie]()
+    var selectedMovie: Movie?
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     var movieDataListView: MovieDataListView? {
         didSet{
@@ -29,7 +30,7 @@ class MovieViewController: UIViewController {
         
         MovieFacade.retrievePopularMovies(completion: {
             popularMovies in
-            self.movie = popularMovies
+            self.movies = popularMovies
             self.movieDataListView?.reloadData()
         })
     }
@@ -41,20 +42,29 @@ class MovieViewController: UIViewController {
             movieDataListView = MovieCollectionView()
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let movieDetailViewController = segue.destination as? MovieDetailViewController {
+            movieDetailViewController.movie = selectedMovie
+            
+        }
+        
+    }
 }
 
 extension MovieViewController: MovieDataSource {
+    
     func numberOfSections() -> Int {
         return 1
     }
     
     func numberOfItems(at section: Int) -> Int {
-        return movie.count
+        return movies.count
     }
     
     func configure(cell: MovieDataCell, atIndex indexPath: IndexPath) {
         
-        let movieRow = movie[indexPath.row]
+        let movieRow = movies[indexPath.row]
         let urlImage = movieRow.imageUrl
         let voteAverage = movieRow.vote_average
         let voteAverageF = Float(round(100*voteAverage!)/100)
@@ -67,6 +77,11 @@ extension MovieViewController: MovieDataSource {
         cell.yearLabel.text = String(year!.characters.prefix(4))
         cell.ratingStar.image = #imageLiteral(resourceName: "imageRating")
         
+    }
+    
+    func didSelectItem(indexPath: IndexPath) {
+        selectedMovie = movies[indexPath.row]
+        performSegue(withIdentifier: "ShowMovie", sender: selectedMovie)
     }
 }
 

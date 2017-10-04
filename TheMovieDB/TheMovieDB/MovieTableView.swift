@@ -54,4 +54,9 @@ extension MovieTableView: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return movieDataSource?.numberOfSections() ?? 1
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        movieDataSource?.didSelectItem(indexPath: indexPath)
+    }
+    
 }

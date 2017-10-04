@@ -15,6 +15,7 @@ protocol MovieDataSource {
     func numberOfSections()->Int
     func numberOfItems(at section:Int)->Int
     func configure(cell: MovieDataCell, atIndex indexPath: IndexPath)
+    func didSelectItem(indexPath: IndexPath)
 }
 
 protocol MovieDataCell: class{
