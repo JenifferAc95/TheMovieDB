@@ -11,6 +11,7 @@ import UIKit
 class MovieViewController: UIViewController {
     
     var movies = [Movie]()
+    var selectedMovie: Movie?
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     var movieDataListView: MovieDataListView? {
         didSet{
@@ -41,6 +42,14 @@ class MovieViewController: UIViewController {
             movieDataListView = MovieCollectionView()
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let movieDetailViewController = segue.destination as? MovieDetailViewController {
+            movieDetailViewController.movie = selectedMovie
+            
+        }
+        
+    }
 }
 
 extension MovieViewController: MovieDataSource {
@@ -68,6 +77,11 @@ extension MovieViewController: MovieDataSource {
         cell.yearLabel.text = String(year!.characters.prefix(4))
         cell.ratingStar.image = #imageLiteral(resourceName: "imageRating")
         
+    }
+    
+    func didSelectItem(indexPath: IndexPath) {
+        selectedMovie = movies[indexPath.row]
+        performSegue(withIdentifier: "ShowMovie", sender: selectedMovie)
     }
 }
 
