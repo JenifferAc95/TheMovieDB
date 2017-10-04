@@ -10,24 +10,36 @@ import UIKit
 
 class MovieViewController: UIViewController {
     
-    //var movieDataListView: MovieDataListView = MovieTableView()
-    var movieDataListView: MovieDataListView = MovieCollectionView()
     var movie = [Movie]()
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    var movieDataListView: MovieDataListView? {
+        didSet{
+            let listView = movieDataListView as! UIView
+            listView.backgroundColor = UIColor.white
+            movieDataListView?.movieDataSource = self
+            view.addSubview(listView)
+            listView.addConstraints(toFillSuperView: view)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Holi"
-        let listView = movieDataListView as! UIView
-        listView.backgroundColor = UIColor.white
-        movieDataListView.movieDataSource = self
-        view.addSubview(listView)
-        listView.addConstraints(toFillSuperView: view)
+        movieDataListView = MovieTableView()
+        segmentedControl.addTarget(self, action: #selector(changeView), for: .valueChanged)
         
         MovieFacade.retrievePopularMovies(completion: {
             popularMovies in
             self.movie = popularMovies
-            self.movieDataListView.reloadData()
+            self.movieDataListView?.reloadData()
         })
+    }
+    
+    func changeView() {
+        if segmentedControl.selectedSegmentIndex == 0 {
+            movieDataListView = MovieTableView()
+        } else {
+            movieDataListView = MovieCollectionView()
+        }
     }
 }
 
