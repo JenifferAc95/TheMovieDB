@@ -15,9 +15,9 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var movieUIImage: UIImageView!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var ratingStartImage: UIImageView!
-    @IBOutlet weak var overviewText: UITextView!
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var genresLabel: UILabel!
+    @IBOutlet weak var overviewLabel: UILabel!
     
     var movie: Movie?
     
@@ -33,7 +33,7 @@ class MovieDetailViewController: UIViewController {
         movieUIImage.af_setImage(withURL: (movie?.backdropUrl)!)
         ratingLabel.text = voteAverageS
         ratingStartImage.image = #imageLiteral(resourceName: "imageRating")
-        overviewText.text = movie?.overview
+        overviewLabel.text = movie?.overview
         releaseDateLabel.text = movie?.release_date
         genresLabel.text = moviesGenres?.joined(separator: ", ")
         

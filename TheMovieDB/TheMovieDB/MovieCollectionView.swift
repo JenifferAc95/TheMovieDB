@@ -8,12 +8,13 @@
 
 import UIKit
 
-class MovieCollectionView: UICollectionView, MovieDataListView {
-
+class MovieCollectionView: UICollectionView, MovieDataListDataSource {
+    
     var movieDataSource: MovieDataSource?
     
     func configure(){
-        self.dataSource = self
+        dataSource = self
+        delegate = self
         register(UINib(nibName: "CustomCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "CustomCollectionViewCell")
     }
     
@@ -42,7 +43,7 @@ class MovieCollectionView: UICollectionView, MovieDataListView {
     }
 }
 
-extension MovieCollectionView: UICollectionViewDataSource, UITableViewDelegate {
+extension MovieCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("Number items")
@@ -62,4 +63,9 @@ extension MovieCollectionView: UICollectionViewDataSource, UITableViewDelegate {
         print("Number sections")
         return movieDataSource?.numberOfSections() ?? 1
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        movieDataSource?.didSelectItem(indexPath: indexPath)
+    }
 }
+

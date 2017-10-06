@@ -8,13 +8,15 @@
 
 import UIKit
 
-class MovieTableView: UITableView, MovieDataListView {
+class MovieTableView: UITableView, MovieDataListDataSource {
     var movieDataSource: MovieDataSource?
     
     func configure(){
         self.dataSource = self
         self.delegate = self
         register(UINib(nibName: "CustomTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CustomTableViewCell")
+        self.estimatedRowHeight = 114
+        self.rowHeight = UITableViewAutomaticDimension
     }
     
     init() {
@@ -45,10 +47,6 @@ extension MovieTableView: UITableViewDataSource, UITableViewDelegate {
         movieDataSource?.configure(cell: cell, atIndex: indexPath)
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

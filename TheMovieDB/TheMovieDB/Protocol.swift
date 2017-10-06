@@ -27,7 +27,7 @@ protocol MovieDataCell: class{
     var yearLabel: UILabel! {get set}
 }
 
-protocol MovieDataListView: class {
+protocol MovieDataListDataSource: class {
     
     func reloadData()
     var movieDataSource: MovieDataSource? {get set}

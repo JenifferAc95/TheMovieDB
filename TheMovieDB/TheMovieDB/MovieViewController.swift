@@ -12,34 +12,45 @@ class MovieViewController: UIViewController {
     
     var movies = [Movie]()
     var selectedMovie: Movie?
+    var collectionView: MovieCollectionView?
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    var movieDataListView: MovieDataListView? {
-        didSet{
-            let listView = movieDataListView as! UIView
-            listView.backgroundColor = UIColor.white
-            movieDataListView?.movieDataSource = self
-            view.addSubview(listView)
-            listView.addConstraints(toFillSuperView: view)
-        }
-    }
+    
+    lazy var movieDataListTableView: MovieTableView = {
+        var tableView = MovieTableView()
+        self.configureView(movieDataList: tableView)
+        return tableView
+    }()
+    
+    lazy var movieDataListCollectionView: MovieCollectionView = {
+        var collectionView = MovieCollectionView()
+        self.configureView(movieDataList: collectionView)
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        movieDataListView = MovieTableView()
         segmentedControl.addTarget(self, action: #selector(changeView), for: .valueChanged)
         
         MovieFacade.retrievePopularMovies(completion: {
             popularMovies in
             self.movies = popularMovies
-            self.movieDataListView?.reloadData()
+            self.movieDataListTableView.reloadData()
         })
+    }
+    
+    func configureView(movieDataList: MovieDataListDataSource) {
+        let listView = movieDataList as! UIView
+        listView.backgroundColor = UIColor.white
+        movieDataList.movieDataSource = self
+        view.addSubview(listView)
+        listView.addConstraints(toFillSuperView: view)
     }
     
     func changeView() {
         if segmentedControl.selectedSegmentIndex == 0 {
-            movieDataListView = MovieTableView()
+            view.bringSubview(toFront: movieDataListTableView)
         } else {
-            movieDataListView = MovieCollectionView()
+            view.bringSubview(toFront: movieDataListCollectionView)
         }
     }
     
@@ -71,7 +82,9 @@ extension MovieViewController: MovieDataSource {
         let voteAverageS = String(voteAverageF)
         let year = movieRow.release_date
         
-        cell.titleMovie.text = movieRow.title
+        movies.sort{$0.vote_average! > $1.vote_average!}
+        
+        cell.titleMovie.text = movieRow.title//"Jeniffer Jeniffer Jeniffer Jeniffer Jeniffer Jeniffer Jeniffer Jeniffer Jeniffer"
         cell.imageMovie.af_setImage(withURL: urlImage!)
         cell.overviewMovie.text = voteAverageS
         cell.yearLabel.text = String(year!.characters.prefix(4))
